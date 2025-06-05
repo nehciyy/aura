@@ -1,0 +1,20 @@
+/* AudioPlayer.css */
+
+.audio-player-container {
+  width: 100%; /* Make it span the width of its parent card/cell */
+  margin: 0; /* Remove any default margins */
+}
+
+.audio-player-container audio {
+  width: 100%;
+  max-width: 300px; /* A reasonable max-width for audio player */
+  height: 40px; /* Standard height for player controls */
+  background-color: #f0f0f0; /* Light background for the player */
+  border-radius: 5px;
+}
+
+/* Optional: Hide default controls and create custom ones if you want advanced customization */
+/* This requires significant CSS and JS work and is beyond a quick refinement */
+/* audio::-webkit-media-controls-enclosure { display: none; } */
+/* audio::-moz-media-controls-enclosure { display: none; } */
+/* audio::-ms-media-controls-enclosure { display: none; } */
