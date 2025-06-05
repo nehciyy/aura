@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react"; // Added useMemo
 import AudioPlayer from "../components/AudioPlayer"; // Assuming this is your custom audio player
 import Button from "../components/Button"; // Assuming this is your custom button component
 import "../styles/HomePage.css"; // Import your CSS styles for this page
-// import axios from 'axios'; // You'll need this for actual API calls later
 
 const HomePage = () => {
   // Dummy data to simulate fetched audio files, now with more details
@@ -13,7 +12,6 @@ const HomePage = () => {
       src: "/audio/podcast1.mp4", // This needs to be a valid path if local, or a backend served path
       category: "podcast",
       dateAdded: "06/01/2025",
-      // In a real app, this would be fetched from backend or a default image
       coverArt: "https://via.placeholder.com/100x100?text=Audio",
     },
     {
@@ -21,7 +19,7 @@ const HomePage = () => {
       title: "podcast2.mp4",
       src: "/audio/podcast2.mp4",
       category: "podcast",
-      dateAdded: "06/01/2025",
+      dateAdded: "06/02/2025", // Changed date for sorting test
       coverArt: "https://via.placeholder.com/100x100?text=Audio",
     },
     {
@@ -29,7 +27,7 @@ const HomePage = () => {
       title: "song3.mp3",
       src: "/audio/song3.mp3",
       category: "music",
-      dateAdded: "06/01/2025",
+      dateAdded: "06/03/2025", // Changed date for sorting test
       coverArt: "https://via.placeholder.com/100x100?text=Music",
     },
     {
@@ -37,8 +35,24 @@ const HomePage = () => {
       title: "interview.wav",
       src: "/audio/interview.wav",
       category: "interview",
-      dateAdded: "06/01/2025",
+      dateAdded: "06/04/2025", // Changed date for sorting test
       coverArt: "https://via.placeholder.com/100x100?text=Talk",
+    },
+    {
+      id: 5,
+      title: "another_song.mp3",
+      src: "/audio/another_song.mp3",
+      category: "music",
+      dateAdded: "05/28/2025", // Older date for sorting test
+      coverArt: "https://via.placeholder.com/100x100?text=Music",
+    },
+    {
+      id: 6,
+      title: "tech_podcast.mp4",
+      src: "/audio/tech_podcast.mp4",
+      category: "podcast",
+      dateAdded: "06/05/2025", // Latest date
+      coverArt: "https://via.placeholder.com/100x100?text=Audio",
     },
   ]);
 
@@ -47,28 +61,54 @@ const HomePage = () => {
   const [message, setMessage] = useState("");
   const [uploading, setUploading] = useState(false);
 
-  // // --- Placeholder for Actual API Calls (Uncomment and implement later) ---
-  // const fetchAudioFiles = async () => {
-  //     try {
-  //         // Replace with your actual backend endpoint for fetching audio
-  //         const response = await axios.get('http://localhost:5000/api/audio');
-  //         setAudioFiles(response.data.map(audio => ({
-  //             id: audio._id,
-  //             title: audio.originalname,
-  //             src: `http://localhost:5000/uploads/${audio.filename}`, // Adjust based on your backend serving
-  //             category: 'Uncategorized', // You might need a category field in your schema in MongoDB
-  //             dateAdded: new Date(audio.uploadDate).toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: 'numeric' }),
-  //             coverArt: 'https://via.placeholder.com/100x100?text=Audio', // Placeholder
-  //         })));
-  //     } catch (error) {
-  //         console.error('Error fetching audio files:', error);
-  //         setMessage('Error fetching audio files.');
-  //     }
-  // };
+  // New states for filtering, sorting, and searching
+  const [filterCategory, setFilterCategory] = useState("all"); // 'all' for no filter
+  const [sortBy, setSortBy] = useState("dateAddedDesc"); // 'dateAddedDesc', 'dateAddedAsc', 'titleAsc', 'titleDesc'
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // useEffect(() => {
-  //     fetchAudioFiles(); // Fetch audio files on component mount
-  // }, []);
+  // Derive unique categories from your audioFiles data
+  const categories = useMemo(() => {
+    const uniqueCategories = new Set(audioFiles.map((file) => file.category));
+    return ["all", ...Array.from(uniqueCategories)].sort();
+  }, [audioFiles]);
+
+  // Use useMemo to filter and sort audio files efficiently
+  const displayedAudioFiles = useMemo(() => {
+    let filtered = audioFiles;
+
+    // 1. Apply Search Filter
+    if (searchTerm) {
+      filtered = filtered.filter((item) =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // 2. Apply Category Filter
+    if (filterCategory !== "all") {
+      filtered = filtered.filter((item) => item.category === filterCategory);
+    }
+
+    // 3. Apply Sorting
+    const sorted = [...filtered].sort((a, b) => {
+      if (sortBy === "dateAddedDesc") {
+        // Assuming dateAdded is MM/DD/YYYY, convert to YYYY-MM-DD for comparison
+        const dateA = new Date(a.dateAdded.split("/").reverse().join("-"));
+        const dateB = new Date(b.dateAdded.split("/").reverse().join("-"));
+        return dateB.getTime() - dateA.getTime(); // Latest date first
+      } else if (sortBy === "dateAddedAsc") {
+        const dateA = new Date(a.dateAdded.split("/").reverse().join("-"));
+        const dateB = new Date(b.dateAdded.split("/").reverse().join("-"));
+        return dateA.getTime() - dateB.getTime(); // Oldest date first
+      } else if (sortBy === "titleAsc") {
+        return a.title.localeCompare(b.title); // A-Z
+      } else if (sortBy === "titleDesc") {
+        return b.title.localeCompare(a.title); // Z-A
+      }
+      return 0; // No specific sort
+    });
+
+    return sorted;
+  }, [audioFiles, filterCategory, sortBy, searchTerm]);
 
   const onFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -88,23 +128,12 @@ const HomePage = () => {
     formData.append("audioFile", selectedFile);
 
     try {
-      // Replace with your actual backend upload endpoint
-      // const response = await axios.post('http://localhost:5000/api/upload', formData, {
-      //     headers: {
-      //         'Content-Type': 'multipart/form-data',
-      //     },
-      // });
-      // setMessage(response.data.message);
-      // setSelectedFile(null); // Clear selected file
-      // fetchAudioFiles(); // Refresh list
-
       // --- Dummy Upload Simulation (Remove when using actual API) ---
       console.log("Simulating upload for:", selectedFile.name);
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
       const newDummyAudio = {
         id: audioFiles.length + 1,
         title: selectedFile.name,
-        // For dummy, we create an object URL; for real, it's from backend's static serve
         src: URL.createObjectURL(selectedFile),
         category: "Uploaded", // Default category for dummy
         dateAdded: new Date().toLocaleDateString("en-US", {
@@ -166,7 +195,44 @@ const HomePage = () => {
       </section>
 
       <section className="audio-display-section">
-        {/* Your table structure, but with dynamic data */}
+        <div className="controls-bar">
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search songs..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+
+          {/* Category Filter */}
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="filter-select"
+          >
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category === "all"
+                  ? "All Categories"
+                  : category.charAt(0).toUpperCase() + category.slice(1)}
+              </option>
+            ))}
+          </select>
+
+          {/* Sort By */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select"
+          >
+            <option value="dateAddedDesc">Date Added (Latest)</option>
+            <option value="dateAddedAsc">Date Added (Oldest)</option>
+            <option value="titleAsc">Title (A-Z)</option>
+            <option value="titleDesc">Title (Z-A)</option>
+          </select>
+        </div>
+
         <table className="audio-table">
           <thead>
             <tr>
@@ -176,17 +242,16 @@ const HomePage = () => {
             </tr>
           </thead>
           <tbody>
-            {audioFiles.length === 0 ? (
+            {displayedAudioFiles.length === 0 ? (
               <tr>
                 <td colSpan="3" style={{ textAlign: "center" }}>
-                  No audio files available.
+                  No audio files found.
                 </td>
               </tr>
             ) : (
-              audioFiles.map((item) => (
+              displayedAudioFiles.map((item) => (
                 <tr key={item.id}>
                   <td>
-                    {/* Display title and use AudioPlayer for playback */}
                     <div className="audio-item-cell">
                       <span>{item.title}</span>
                       <AudioPlayer src={item.src} title={item.title} />
