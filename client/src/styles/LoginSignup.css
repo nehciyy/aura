@@ -1,0 +1,29 @@
+.login-logo {
+  font-family: "Monomaniac One", cursive;
+  color: #9370db;
+  font-size: 8rem;
+  margin: -20px 0 10px 0;
+  height: 11rem;
+}
+
+.auth-container {
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-form {
+  display: flex;
+  gap: 1rem;
+  width: 300px;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}

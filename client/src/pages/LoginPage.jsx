@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import InputField from "../components/InputFields";
 import Button from "../components/Button";
+import "../styles/LoginSignup.css";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
