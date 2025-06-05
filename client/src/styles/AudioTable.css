@@ -1,0 +1,160 @@
+/* src/styles/AudioTable.css */
+.audio-display-section {
+  padding: 10px 0px;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Controls bar (Search, Filter, Sort) */
+.controls-bar {
+  display: flex; /* Arranges items in a row */
+  justify-content: flex-end; /* Pushes items to the right */
+  align-items: center; /* Vertically centers items */
+  gap: 15px; /* Space between each control element */
+  margin-bottom: 25px; /* Space below the controls bar */
+  padding: 10px 0; /* Vertical padding */
+  flex-wrap: wrap; /* Allows controls to wrap to the next line on smaller screens */
+}
+
+.search-input,
+.filter-select,
+.sort-select {
+  padding: 8px 12px; /* Inner spacing */
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 0.95em; /* Slightly smaller font size */
+  color: #333; /* Dark grey text color */
+  background-color: #fff; /* White background */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover/focus */
+}
+
+.search-input {
+  flex-grow: 1; /* Allows the search input to take up more available space */
+  max-width: 300px; /* Limits the maximum width of the search input */
+}
+
+/* Styles for dropdowns (filter and sort) */
+.filter-select,
+.sort-select {
+  cursor: pointer; /* Indicates it's clickable */
+  -webkit-appearance: none; /* For Chrome, Safari - remove default arrow */
+  -moz-appearance: none; /* For Firefox - remove default arrow */
+  appearance: none; /* Standard property - remove default arrow */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2C197.3L159.9%2C69.8c-2.1-2.1-4.8-3.3-7.6-3.3c-2.9%2C0-5.6%2C1.2-7.6%2C3.3L5.4%2C197.3c-4.1%2C4.1-4.1%2C10.7%2C0%2C14.8c4.1%2C4.1%2C10.7%2C4.1%2C14.8%2C0l132.8-133.3l132.8%2C133.3c4.1%2C4.1%2C10.7%2C4.1%2C14.8%2C0C291.1%2C208%2C291.1%2C201.3%2C287%2C197.3z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 12px auto;
+  padding-right: 30px; /* Make space for the custom arrow */
+}
+
+/* Hover and Focus states for input and selects */
+.search-input:hover,
+.filter-select:hover,
+.sort-select:hover {
+  border-color: #8c5cdb; /* Purple border on hover */
+}
+
+.search-input:focus,
+.filter-select:focus,
+.sort-select:focus {
+  border-color: #8c5cdb; /* Purple border on focus */
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 0 3px rgba(140, 92, 219, 0.3); /* Subtle purple glow */
+}
+
+/* Audio Table Styles */
+.audio-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  flex-grow: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.audio-table th,
+.audio-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.audio-table thead {
+  background-color: #f8f8f8; /* Light header background */
+  color: #5a2c8a; /* Header text color */
+  flex-shrink: 0;
+  table-layout: fixed;
+}
+
+.audio-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.audio-table tbody tr:last-child td {
+  border-bottom: none; /* No border for the last row */
+}
+
+.audio-table tbody tr:hover {
+  background-color: #fbfbfb; /* Subtle hover effect */
+}
+
+.audio-item-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between song name and player */
+}
+
+.audio-item-cell span {
+  flex-shrink: 0; /* Prevent song name from shrinking too much */
+  min-width: 120px; /* Give it a minimum width */
+  font-weight: 500;
+  color: #333;
+}
+
+.audio-item-cell .audio-player-container {
+  flex-grow: 1; /* Audio player takes up remaining space */
+  margin: 0; /* Remove default margin */
+}
+
+/* Responsive adjustments for AudioTable */
+@media (max-width: 768px) {
+  .controls-bar {
+    flex-direction: column; /* Stack controls vertically */
+    align-items: flex-start; /* Align stacked items to the left */
+    gap: 10px;
+  }
+  .search-input,
+  .filter-select,
+  .sort-select {
+    width: 100%; /* Make them full width on smaller screens */
+    max-width: none;
+  }
+  .audio-table th,
+  .audio-table td {
+    padding: 10px 10px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .audio-table {
+    font-size: 0.85em;
+  }
+  .audio-item-cell {
+    flex-direction: column; /* Stack song name and player vertically */
+    align-items: flex-start;
+  }
+  .audio-item-cell span {
+    min-width: unset; /* Remove min-width on small screens */
+  }
+}
