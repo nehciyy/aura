@@ -1,0 +1,34 @@
+.profile-container {
+  display: contents;
+  flex-direction: column;
+  align-items: left;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.profile-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 400px;
+  margin-left: 5%;
+}
+
+.profile-form .input .button {
+  display: flex;
+  gap: 3rem;
+  width: 300px;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.danger {
+  color: red;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

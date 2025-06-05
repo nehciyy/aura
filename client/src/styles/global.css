@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Cambay&family=Monomaniac+One&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Cambay", sans-serif;
+  background-color: #fffcee;
+}
+
+.login-logo {
+  font-family: "Monomaniac One", cursive;
+  color: #9370db;
+  font-size: 8rem;
+  margin-bottom: 0%;
+}
+
+.logo {
+  font-family: "Monomaniac One", cursive;
+  color: #9370db;
+  font-size: 8rem;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding-top: 0px;
+}
+
+.auth-container {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 0 1rem;
+}
+
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-form {
+  display: flex;
+  gap: 1rem;
+  width: 300px;
+  flex-wrap: wrap;
+  align-content: stretch;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.input {
+  display: block;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  width: 80%;
+  border: none;
+  border-radius: 10px;
+  background-color: #d2f3f9;
+}
+
+.button {
+  padding: 0.6rem 1.5rem;
+  background-color: #b18df0;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.icon-button {
+  font-size: 1.2rem;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+  width: 90%;
+}
+
+th,
+td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ccc;
+}
