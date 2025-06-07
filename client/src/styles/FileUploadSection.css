@@ -1,0 +1,252 @@
+/* src/styles/FileUploadSection.css */
+
+/* General Styling for the entire upload section container */
+.upload-section {
+  background-color: #e0f2f7; /* Light blue background for the upload box area */
+  border-radius: 15px; /* More rounded corners for the upload box */
+  padding: 30px 40px; /* Increased padding for better spacing */
+  display: flex; /* Use flexbox for inner alignment */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally within the flex container */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Softer, larger shadow for the entire box */
+  font-family: "Inter", sans-serif; /* Consistent modern font */
+  color: #333; /* Default text color */
+}
+
+.upload-section h2 {
+  color: #4a4a4a; /* Slightly darker heading */
+  margin-bottom: 30px;
+  font-size: 2.2em; /* Larger heading */
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+  width: 100%; /* Ensure heading takes full width */
+}
+
+/* Wrapper for all form elements within the section */
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Space between different form groups/sections */
+  width: 100%; /* Make the form content take full width of its parent */
+  max-width: 600px; /* Limit the max width of the form elements for readability */
+}
+
+/* Styling for the top upload box (Choose File, filename, audio player) */
+.upload-box-top {
+  display: flex; /* Arrange children (button, filename, player) horizontally */
+  align-items: center; /* Vertically align items in the center */
+  gap: 15px; /* Space between input, name, and player */
+  width: 90%; /* Take full width of .upload-form */
+  background-color: #ffffff; /* White background for the input/player line */
+  border: 1px solid #8c5cdb; /* Purple border for the line */
+  border-radius: 8px; /* Rounded corners for the line */
+  padding: 10px 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+}
+
+.upload-form .button {
+  width: 95%;
+  font-size: 20px;
+}
+
+.upload-box-top input[type="file"] {
+  display: none; /* Hide default file input */
+}
+
+/* Style the label to act as the file input button */
+.upload-box-top .custom-file-input-label {
+  background-color: #8c5cdb; /* Purple color for the choose file button */
+  color: white;
+  padding: 10px 20px; /* Slightly more padding for better button size */
+  border-radius: 6px; /* Slightly more rounded button */
+  cursor: pointer;
+  font-size: 1em; /* Standard font size */
+  font-weight: 600;
+  white-space: nowrap; /* Prevent button text from wrapping */
+  flex-shrink: 0; /* Don't shrink the button */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.upload-box-top .custom-file-input-label:hover {
+  background-color: #6a42a0; /* Darker purple on hover */
+  transform: translateY(-1px);
+}
+
+/* Style for the chosen file name and the "or drag & drop" text */
+.upload-box-top .selected-file-name {
+  flex-grow: 1; /* Take up available space */
+  font-size: 1.1em; /* Slightly larger font */
+  color: #555;
+  padding-left: 5px;
+  text-align: center; /* Center the "or drag & drop" text */
+  word-break: break-all; /* Ensure long file names wrap */
+}
+
+/* Styling for the audio player preview within the upload-box-top */
+.upload-box-top .audio-player-container {
+  flex-shrink: 0; /* Don't shrink the player */
+  width: auto; /* Allow player to size itself naturally */
+  max-width: 150px; /* Max width for compact player in this line */
+  margin: 0; /* Remove extra margin from player */
+}
+
+.upload-box-top .audio-player-container audio {
+  width: 100%;
+  height: 30px; /* Compact height for the player */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Drag-and-drop styles */
+.upload-box-top.drag-over {
+  border: 2px dashed #8c5cdb; /* A dashed purple border */
+  background-color: #f0e6ff; /* A lighter purple background */
+  box-shadow: 0 0 15px rgba(140, 92, 219, 0.5); /* A subtle glow */
+}
+
+.upload-form .form-group {
+  width: 100%; /* Ensure form groups take full width of .upload-form */
+  text-align: left; /* Labels and inputs align left */
+}
+
+.upload-form .form-group label {
+  display: block; /* Ensures label is on its own line above the input */
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #4a4a4a;
+  font-size: 1em;
+}
+
+.upload-form .form-group textarea,
+.upload-form .form-group select,
+.upload-form .form-group input[type="text"] {
+  width: calc(
+    100% - 24px
+  ); /* Full width minus padding (12px each side) and border (1px each side) */
+  padding: 12px;
+  border: 1px solid #dcdcdc; /* Lighter border */
+  border-radius: 8px; /* More rounded inputs */
+  font-size: 1em;
+  color: #333;
+  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* Subtle inner shadow */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.upload-form .form-group textarea:focus,
+.upload-form .form-group select:focus,
+.upload-form .form-group input[type="text"]:focus {
+  border-color: #8c5cdb; /* Purple on focus */
+  box-shadow: 0 0 0 3px rgba(140, 92, 219, 0.2); /* Soft glow on focus */
+  outline: none; /* Remove default outline */
+}
+
+.upload-form .form-group textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 100px; /* Taller textarea */
+}
+
+.upload-form .form-group select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238c5cdb%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20200.6%2018.6%2075.1c-4.7-5.2-11.5-8-18.7-8s-13.9%202.8-18.7%208c-9.5%2010.4-9.5%2027.5%200%2037.9l128%20128.1c4.7%205.2%2011.5%208%2018.7%208s13.9-2.8%2018.7-8l128-128.1c9.5-10.4%209.5-27.5%200-37.9-4.7-5.2-11.5-8-18.7-8z%22%2F%3E%3C%2Fsvg%3E"); /* Custom arrow in your purple */
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px auto;
+  padding-right: 40px; /* Space for the custom arrow */
+  cursor: pointer;
+}
+
+/* Specific styling for the 'upload' button */
+.upload-section .custom-button {
+  /* Using your specified class name */
+  background-color: #8c5cdb; /* Your chosen purple for upload button */
+  color: white;
+  padding: 12px 30px; /* Adjusted padding */
+  font-size: 1.15em; /* Slightly larger font */
+  font-weight: 600;
+  border: none;
+  border-radius: 25px; /* More rounded corners as in your design */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Soft shadow */
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
+  margin-top: 20px; /* Space above the button */
+}
+
+.upload-section .custom-button:hover:not(:disabled) {
+  background-color: #6a42a0; /* Darker purple on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* More pronounced shadow on hover */
+}
+
+.upload-section .custom-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Upload message styling */
+.upload-message {
+  margin-top: 20px;
+  font-size: 1em;
+  color: #5a2c8a; /* Your chosen color for messages */
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .upload-section {
+    padding: 20px;
+    margin: 30px 10px; /* Smaller side margins on smaller screens */
+  }
+
+  .upload-section h2 {
+    font-size: 1.8em;
+  }
+
+  .upload-box-top {
+    flex-direction: column; /* Stack elements vertically in the upload box */
+    align-items: stretch; /* Stretch children to full width */
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .upload-box-top .custom-file-input-label,
+  .upload-box-top .selected-file-name,
+  .upload-box-top .audio-player-container {
+    width: 100%; /* Make these elements take full width */
+    max-width: none; /* Remove max-width constraint */
+  }
+
+  .upload-box-top .selected-file-name {
+    text-align: left; /* Align text to left when stacked */
+  }
+
+  .upload-box-top .audio-player-container audio {
+    height: 40px; /* Slightly taller player when stacked */
+  }
+
+  .upload-section .custom-button {
+    padding: 10px 25px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .upload-section {
+    margin: 20px 5px; /* Even smaller margins on very small screens */
+    padding: 15px;
+  }
+  .upload-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+}

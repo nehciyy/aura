@@ -5,6 +5,21 @@ import FileUploadSection from "../components/FileUploadSection"; // Import new F
 import AudioTable from "../components/AudioTable"; // Import new AudioTable
 import "../styles/HomePage.css"; // Keep general layout styles
 
+const FIXED_CATEGORIES = [
+  "podcast",
+  "music",
+  "interview",
+  "lecture",
+  "news",
+  "comedy",
+  "scenery",
+  "lo-fi",
+  "rock",
+  "pop",
+  "jazz",
+  "others",
+];
+
 const HomePage = () => {
   // Main state for all audio files (this is now the single source of truth)
   const [audioFiles, setAudioFiles] = useState([
@@ -87,7 +102,10 @@ const HomePage = () => {
   return (
     <div>
       <Header />
-      <FileUploadSection onFileUploadSuccess={handleFileUploadSuccess} />
+      <FileUploadSection
+        onFileUploadSuccess={handleFileUploadSuccess}
+        existingCategories={FIXED_CATEGORIES}
+      />
       <AudioTable audioFiles={audioFiles} />
     </div>
   );
