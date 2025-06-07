@@ -3,7 +3,7 @@ import "../styles/FileUploadSection.css";
 
 const AudioCategory = ({
   selectedCategory,
-  setSelectedCategory,
+  onCategoryChange,
   existingCategories,
 }) => {
   const handleCategoryChange = (event) => {

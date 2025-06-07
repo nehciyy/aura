@@ -47,7 +47,7 @@ const SignupPage = () => {
           </Button>
         </form>
         <p>
-          have an account already? <a href="/">login</a>
+          have an account already? <a href="/login">login</a>
         </p>
       </div>
     </div>
