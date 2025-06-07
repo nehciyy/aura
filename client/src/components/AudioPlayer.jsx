@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/AudioPlayer.css"; // Create a CSS file for this component
+import "../styles/AudioPlayer.css";
 
 const AudioPlayer = ({ src, title }) => {
   return (
