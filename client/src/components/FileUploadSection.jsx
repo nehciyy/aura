@@ -1,6 +1,5 @@
 // src/components/FileUploadSection.jsx
 import React, { useState, useEffect } from "react";
-import AudioPlayer from "./AudioPlayer";
 import UploadAudioInput from "./UploadAudioInput";
 import AudioDescription from "./AudioDescription";
 import AudioCategory from "./AudioCategory";

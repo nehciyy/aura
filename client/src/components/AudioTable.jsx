@@ -93,6 +93,7 @@ const AudioTable = ({ audioFiles }) => {
         <thead>
           <tr>
             <th>song</th>
+            <th>description</th>
             <th>category</th>
             <th>date added</th>
           </tr>
@@ -113,6 +114,7 @@ const AudioTable = ({ audioFiles }) => {
                     <AudioPlayer src={item.src} title={item.title} />
                   </div>
                 </td>
+                <td>{item.description}</td>
                 <td>{item.category}</td>
                 <td>{item.dateAdded}</td>
               </tr>
