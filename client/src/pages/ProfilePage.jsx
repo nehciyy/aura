@@ -42,7 +42,9 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-container">
-      <h1 className="logo">aura</h1>
+      <h1 className="logo">
+        <a href="/">aura</a>
+      </h1>
       <div className="profile-box">
         <h2>Welcome back {firstName}!</h2>
         <p>Change your profile details below:</p>

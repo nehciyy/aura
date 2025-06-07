@@ -16,7 +16,7 @@ body #root {
   gap: 20px;
 }
 
-.logo {
+.logo a {
   font-family: "Monomaniac One", cursive;
   color: #9370db;
   font-size: 8rem;
@@ -26,6 +26,7 @@ body #root {
   justify-content: center;
   display: flex;
   padding-top: 0px;
+  text-decoration: none;
 }
 
 .input {
