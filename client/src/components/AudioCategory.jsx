@@ -7,7 +7,7 @@ const AudioCategory = ({
   existingCategories,
 }) => {
   const handleCategoryChange = (event) => {
-    selectedCategory(event.target.value);
+    onCategoryChange(event.target.value);
   };
 
   return (

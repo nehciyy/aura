@@ -55,52 +55,23 @@ const FileUploadSection = ({ onFileUploadSuccess, existingCategories }) => {
     formData.append("category", selectedCategory); // Directly use selectedCategory
 
     try {
-      // --- Dummy Upload Simulation (Replace with actual API call) ---
-      console.log(
-        "Simulating upload for:",
-        selectedFile.name,
-        "with description:",
-        description,
-        "and category:",
-        selectedCategory
-      );
-      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
-
-      // Simulate a successful response from the backend
-      onFileUploadSuccess({
-        id: Date.now(), // Unique ID for the new item
-        title: selectedFile.name,
-        src: URL.createObjectURL(selectedFile), // Temporary URL for playback
-        category: selectedCategory, // Use the selected category
-        description: description, // Use the description
-        dateAdded: new Date().toLocaleDateString("en-US", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }),
-        coverArt: "https://via.placeholder.com/100x100?text=New",
+      const response = await fetch("/api/audio/upload", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
       });
-      setMessage(`'${selectedFile.name}' uploaded successfully!`);
+      console.log("Response status:", response); // Log the response status
+      if (!response.ok) throw new Error("Upload failed. Please try again.");
 
-      // --- RESET ALL INPUTS AFTER SUCCESSFUL UPLOAD ---
+      const newFile = await response.json();
+      onFileUploadSuccess(newFile); // Call the success callback with the new file data
       setSelectedFile(null);
       setDescription("");
-      // Reset category to the first one available or empty
-      setSelectedCategory(
-        existingCategories && existingCategories.length > 0
-          ? existingCategories[0]
-          : ""
-      );
-      // Reset the file input element directly
-      document.getElementById("audio-upload").value = "";
-
-      // --- End Dummy Upload Simulation ---
-    } catch (error) {
-      console.error("Error uploading file:", error);
-      setMessage(
-        error.response?.data?.message ||
-          "Error uploading file. Please try again."
-      );
+      setSelectedCategory(existingCategories[0] || "");
+      alert("File uploaded successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -128,7 +99,7 @@ const FileUploadSection = ({ onFileUploadSuccess, existingCategories }) => {
         {/* Render the new AudioCategory component */}
         <AudioCategory
           selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
+          onCategoryChange={setSelectedCategory}
           existingCategories={existingCategories}
         />
 
