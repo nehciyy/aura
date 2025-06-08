@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
+
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(404).json({ message: "User not found" });
@@ -22,6 +23,7 @@ export const loginUser = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   const { username, firstName, lastName, password } = req.body;
+
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser)

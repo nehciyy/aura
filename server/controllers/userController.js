@@ -3,6 +3,11 @@ import bcrypt from "bcryptjs";
 
 export const updateUser = async (req, res) => {
   const { username, firstName, lastName, password } = req.body;
+
+  if (req.user.id !== req.params.id) {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
   try {
     const updates = { username, firstName, lastName };
     if (password) updates.password = await bcrypt.hash(password, 10);
@@ -17,6 +22,10 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
+  if (req.user.id !== req.params.id) {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: "User deleted successfully" });
