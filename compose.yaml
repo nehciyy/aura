@@ -1,0 +1,55 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+version: "3.8"
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:5000
+    container_name: aura_client
+    ports:
+      - "80:80"
+    depends_on:
+      - server
+
+  server:
+    user: "${LOCAL_UID}:${LOCAL_GID}"
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: aura_server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./server/uploads:/usr/src/app/uploads
+    env_file:
+      - .env
+
+  mongodb:
+    image: mongo:6.0
+    container_name: aura_mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=aura_db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  mongodb_data:

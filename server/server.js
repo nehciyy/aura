@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import audioRoutes from "./routes/Audio.js";
@@ -8,6 +9,13 @@ import authRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost",
+    credentials: true,
+  })
+);
 
 // Body parser
 app.use(express.json());

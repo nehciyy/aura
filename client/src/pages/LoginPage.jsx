@@ -3,6 +3,8 @@ import InputField from "../components/InputFields";
 import Button from "../components/Button";
 import "../styles/LoginSignup.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,23 +13,22 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch(`${API_BASE_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          accept: "application/json",
         },
         credentials: "include",
         body: JSON.stringify({ username, password }),
       });
-
-      const data = await response.json();
 
       if (!response.ok) {
         const err = await response.json();
         alert(err.message || "Login failed. Please try again.");
         return;
       }
+
+      const data = await response.json();
 
       const userID = data.user?._id;
       const token = data.token;

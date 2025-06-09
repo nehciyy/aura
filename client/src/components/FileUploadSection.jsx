@@ -6,6 +6,8 @@ import AudioCategory from "./AudioCategory";
 import Button from "./Button";
 import "../styles/FileUploadSection.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 // Note: setCategories prop is no longer needed/passed
 const FileUploadSection = ({ onFileUploadSuccess, existingCategories }) => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -56,7 +58,7 @@ const FileUploadSection = ({ onFileUploadSuccess, existingCategories }) => {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/audio/upload", {
+      const response = await fetch(`${API_BASE_URL}/api/audio/upload`, {
         method: "POST",
         body: formData,
         headers: {

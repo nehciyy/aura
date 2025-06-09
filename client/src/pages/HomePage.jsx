@@ -21,6 +21,8 @@ const FIXED_CATEGORIES = [
   "others",
 ];
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [audioFiles, setAudioFiles] = useState([]);
@@ -37,12 +39,15 @@ const HomePage = () => {
 
     const fetchAudioFiles = async () => {
       try {
-        const response = await axios.get(`/api/audio/user/${userID}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${API_BASE_URL}/api/audio/user/${userID}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const mapped = response.data.map((audio) => {
           const cleanSrc = audio.src.startsWith("/uploads/")

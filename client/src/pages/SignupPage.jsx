@@ -4,6 +4,8 @@ import InputField from "../components/InputFields";
 import Button from "../components/Button";
 import "../styles/LoginSignup.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const SignupPage = () => {
   const navigate = useNavigate();
   const [firstName, setfName] = useState("");
@@ -19,7 +21,7 @@ const SignupPage = () => {
     setSuccess("");
 
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch(`${API_BASE_URL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

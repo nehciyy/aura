@@ -4,6 +4,8 @@ import InputField from "../components/InputFields";
 import Button from "../components/Button";
 import "../styles/Profile.css";
 
+const API_BASE_URL = process.env.REACT_APP_API_URL;
+
 const ProfilePage = () => {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -40,7 +42,7 @@ const ProfilePage = () => {
         password,
       };
 
-      const response = await fetch(`/api/${userID}`, {
+      const response = await fetch(`${API_BASE_URL}/api/${userID}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ const ProfilePage = () => {
     );
     if (confirmDelete) {
       try {
-        const response = await fetch(`/api/${userID}`, {
+        const response = await fetch(`${API_BASE_URL}/api/${userID}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
           body: JSON.stringify({ userID }),
