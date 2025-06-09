@@ -38,7 +38,10 @@ const HomePage = () => {
     const fetchAudioFiles = async () => {
       try {
         const response = await axios.get(`/api/audio/user/${userID}`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const mapped = response.data.map((audio) => {
