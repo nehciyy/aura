@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import audioRoutes from "./routes/Audio.js";
+import authRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
 app.use("/api/audio", audioRoutes);
+app.use("/api", authRoutes);
 
 // Connect to MongoDB and start server
 mongoose

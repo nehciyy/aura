@@ -7,8 +7,33 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    //Authentication logic here
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
+
+      console.log(response);
+      if (!response.ok) {
+        const err = await response.json();
+        alert(err.message || "Login failed. Please try again.");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Login successful:", data);
+      window.location.href = "/";
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("An error occurred while logging in. Please try again.");
+    }
   };
 
   return (

@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
+router.post("/signup", registerUser);
+router.post("/login", loginUser);
 router.put("/:id", authenticate, updateUser);
 router.delete("/:id", authenticate, deleteUser);
-router.post("/signup", authenticate, registerUser);
-router.post("/login", authenticate, loginUser);
 router.get("/check-username/:username", authenticate, checkUsernameExists);
 
 export default router;
