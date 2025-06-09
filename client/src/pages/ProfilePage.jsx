@@ -1,42 +1,101 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputFields";
 import Button from "../components/Button";
-import "../styles/Profile.css"; // Assuming you have a CSS file for styling
+import "../styles/Profile.css";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setFirstName(user.firstName || "");
-      setLastName(user.lastName || "");
-      setUsername(user.username || "");
-    }
-  }, []);
+  const userID = localStorage.getItem("userID");
+  const token = localStorage.getItem("token");
 
-  const handleSubmit = () => {
-    // Update the stored user data
-    const updatedUser = {
-      firstName,
-      lastName,
-      username,
-    };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+  useEffect(() => {
+    if (!userID || !token) {
+      navigate("/login");
+    }
+  }, [userID, token, navigate]);
+
+  const handleSubmit = async () => {
+    if (!firstName || !lastName || !username || !password) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    if (!userID || !token) {
+      alert("You must be logged in to update your profile.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const updates = {
+        username,
+        firstName,
+        lastName,
+        password,
+      };
+
+      const response = await fetch(`/api/${userID}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updates),
+      });
+
+      const updateUser = await response.text();
+      localStorage.setItem("user", JSON.stringify(updateUser));
+
+      alert("Profile updated successfully!");
+      setPassword(""); // Clear password field after successful update
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      alert("Failed to update profile. Please try again later.");
+    }
   };
 
-  const handleDeleteAccount = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("userID");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    alert("You have been logged out.");
+    navigate("/login");
+  };
+
+  const handleDeleteAccount = async () => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account? This action cannot be undone."
     );
     if (confirmDelete) {
-      localStorage.removeItem("user");
-      alert("Your account has been deleted.");
-      window.location.href = "/"; // Redirect to login page
+      try {
+        const response = await fetch(`/api/${userID}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ userID }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to delete account.");
+        }
+
+        localStorage.removeItem("userID");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        alert("Account deleted successfully.");
+
+        setTimeout(() => navigate("/login"), 1500);
+      } catch (err) {
+        console.error("Error deleting account:", err);
+        alert("Failed to delete account. Please try again later.");
+      }
     }
   };
 
@@ -45,10 +104,17 @@ const ProfilePage = () => {
       <h1 className="logo">
         <a href="/">aura</a>
       </h1>
+      <Button onClick={handleLogout}>logout</Button>
       <div className="profile-box">
         <h2>Welcome back {firstName}!</h2>
         <p>Change your profile details below:</p>
         <form className="profile-form" onSubmit={(e) => e.preventDefault()}>
+          <InputField
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <InputField
             type="text"
             placeholder="First name"
@@ -62,20 +128,14 @@ const ProfilePage = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
           <InputField
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <InputField
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button onClick={handleSubmit}>submit</Button>
+          <Button onClick={handleSubmit}>UPDATE</Button>
         </form>
-        <p class="danger">
+        <p className="danger">
           <span
             onClick={handleDeleteAccount}
             style={{

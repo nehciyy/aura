@@ -16,15 +16,6 @@ export const getUserAudio = async (req, res) => {
   }
 };
 
-export const getAudioById = async (req, res) => {
-  try {
-    const audio = await Audio.findById(req.params.audioId);
-    res.status(200).json(audio);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
 export const uploadAudio = async (req, res) => {
   try {
     const { description, category } = req.body;

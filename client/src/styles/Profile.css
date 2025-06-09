@@ -34,3 +34,7 @@
   font-size: 0.9rem;
   cursor: pointer;
 }
+
+.button {
+  align-self: end;
+}

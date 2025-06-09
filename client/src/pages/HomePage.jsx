@@ -37,11 +37,11 @@ const HomePage = () => {
 
     const fetchAudioFiles = async () => {
       try {
-        const res = await axios.get(`/api/audio/user/${userID}`, {
+        const response = await axios.get(`/api/audio/user/${userID}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const mapped = res.data.map((audio) => {
+        const mapped = response.data.map((audio) => {
           const cleanSrc = audio.src.startsWith("/uploads/")
             ? audio.src.substring("/uploads/".length)
             : audio.src;
