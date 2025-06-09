@@ -10,7 +10,7 @@ const audioSchema = new mongoose.Schema(
     filename: { type: String, required: true },
     description: { type: String, default: "" },
     src: { type: String, required: true },
-    catergory: { type: String, default: "Others" },
+    category: { type: String, default: "Others" },
   },
   { timestamps: true }
 );

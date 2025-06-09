@@ -20,7 +20,6 @@ const LoginPage = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      console.log(response);
       if (!response.ok) {
         const err = await response.json();
         alert(err.message || "Login failed. Please try again.");
@@ -28,6 +27,8 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
+      localStorage.setItem("token", data.token);
+      console.log("Token stored:", data.token);
       console.log("Login successful:", data);
       window.location.href = "/";
     } catch (err) {

@@ -21,18 +21,17 @@ export const getAudioById = async (req, res) => {
 export const uploadAudio = async (req, res) => {
   try {
     const { description, category } = req.body;
-    const userId = req.user.id;
+    const userID = req.user.id;
     const file = req.file;
 
     if (!file) return res.status(400).json({ message: "No file uploaded." });
 
     const newAudio = new Audio({
-      userId,
+      userID,
       filename: file.originalname,
-      src: `/uploads/${file.filename}`, // Adjust path as needed
       description,
+      src: `/uploads/${file.filename}`, // Adjust path as needed
       category,
-      uploadedAt: new Date(),
     });
 
     await newAudio.save();

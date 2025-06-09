@@ -55,12 +55,16 @@ const FileUploadSection = ({ onFileUploadSuccess, existingCategories }) => {
     formData.append("category", selectedCategory); // Directly use selectedCategory
 
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch("/api/audio/upload", {
         method: "POST",
         body: formData,
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`, // Make sure token is here
+        },
+        credentials: "include", // if using cookies/sessions
       });
-      console.log("Response status:", response); // Log the response status
+      console.log("Response:", response); // Log the response status
       if (!response.ok) throw new Error("Upload failed. Please try again.");
 
       const newFile = await response.json();
