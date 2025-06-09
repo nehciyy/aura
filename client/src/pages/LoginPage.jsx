@@ -20,17 +20,27 @@ const LoginPage = () => {
         body: JSON.stringify({ username, password }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
         const err = await response.json();
         alert(err.message || "Login failed. Please try again.");
         return;
       }
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      console.log("Token stored:", data.token);
-      console.log("Login successful:", data);
-      window.location.href = "/";
+      const userID = data.user?._id;
+      const token = data.token;
+
+      if (!userID || !token) {
+        alert("Missing user or token in response. Please try again.");
+        return;
+      }
+
+      localStorage.setItem("userID", userID);
+      localStorage.setItem("token", token);
+
+      console.log("Login successful:", { userID, token });
+      window.location.href = "/"; // Redirect to home page after successful login
     } catch (err) {
       console.error("Login error:", err);
       alert("An error occurred while logging in. Please try again.");

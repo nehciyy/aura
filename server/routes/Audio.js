@@ -21,8 +21,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.get("/user/:userId", getUserAudio);
-router.get("/:audioId", getAudioById);
+router.get("/user/:userID", authMiddleware, getUserAudio);
+router.get("/:audioId", authMiddleware, getAudioById);
 router.post("/upload", authMiddleware, upload.single("audioFile"), uploadAudio);
 
 export default router;

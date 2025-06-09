@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputFields";
 import Button from "../components/Button";
 import "../styles/LoginSignup.css";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [firstName, setfName] = useState("");
   const [lastName, setlName] = useState("");
   const [username, setUsername] = useState("");
@@ -33,7 +35,7 @@ const SignupPage = () => {
       } else {
         setSuccess("Signup successful! Redirecting to login...");
         setTimeout(() => {
-          window.location.href = "/login";
+          navigate("/login");
         }, 1500);
       }
     } catch (err) {
