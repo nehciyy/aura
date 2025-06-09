@@ -4,10 +4,9 @@ import "../styles/AudioPlayer.css";
 const AudioPlayer = ({ src, title }) => {
   return (
     <div className="audio-player-container">
-      {/* <p className="audio-player-title">{title}</p> // Optional: display title above player */}
       <audio controls>
-        <source src={src} type="audio/mpeg" />{" "}
-        {/* Default to mpeg, adjust type if needed */}
+        <source src={src} type="audio/mpeg" />
+        <source src={src.replace(".mp3", ".ogg")} type="audio/ogg" />
         Your browser does not support the audio element.
       </audio>
     </div>

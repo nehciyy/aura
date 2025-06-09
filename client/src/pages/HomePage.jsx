@@ -41,10 +41,15 @@ const HomePage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        const mapped = res.data.map((audio) => ({
-          ...audio,
-          src: `http://localhost:5000/uploads/${audio.src}`,
-        }));
+        const mapped = res.data.map((audio) => {
+          const cleanSrc = audio.src.startsWith("/uploads/")
+            ? audio.src.substring("/uploads/".length)
+            : audio.src;
+          return {
+            ...audio,
+            src: `http://localhost:5000/uploads/${cleanSrc}`,
+          };
+        });
 
         setAudioFiles(mapped);
       } catch (error) {
