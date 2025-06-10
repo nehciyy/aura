@@ -69,7 +69,7 @@ const HomePage = () => {
   }, [userID, token, navigate]);
 
   const handleFileUploadSuccess = (newAudioItem) => {
-    setAudioFiles((prev) => [...prev, newAudioItem]);
+    setAudioFiles((prev) => [...prev, newAudioItem.audio]);
   };
 
   return (
