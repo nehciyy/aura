@@ -55,7 +55,7 @@ const HomePage = () => {
             : audio.src;
           return {
             ...audio,
-            src: `http://localhost:5000/uploads/${cleanSrc}`,
+            src: `${API_BASE_URL}/uploads/${cleanSrc}`,
           };
         });
 
