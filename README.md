@@ -119,3 +119,9 @@ This project uses environment variables. You'll need to create local `.env` file
     docker compose up --build
     ```
 3.  Open your browser to `http://localhost`.
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
