@@ -16,7 +16,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost",
-      "https://aura.onrender.com",
+      "https://aura-upe1.onrender.com/",
     ],
     credentials: true,
   })
