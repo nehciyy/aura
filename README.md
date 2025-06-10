@@ -15,7 +15,8 @@ Here's a breakdown of the technologies used in this project:
 
   - [**Node.js**](https://nodejs.org/): A JavaScript runtime built on Chrome's V8 JavaScript engine.
   - [**Express.js**](https://expressjs.com/): A fast, unopinionated, minimalist web framework for Node.js.
-  - [**Multer**](https://github.com/expressjs/multer): A Node.js middleware for handling `multipart/form-data`, primarily used for file uploads.
+  - **Multer:** A Node.js middleware for handling `multipart/form-data`, primarily used for file uploads.
+  - **Cloudinary:** A cloud-based media management platform used for storing and serving audio files.
   - **JSON Web Tokens (JWT):** For secure user authentication.
   - **dotenv:** For loading environment variables from `.env` files.
   - **CORS:** For handling Cross-Origin Resource Sharing.
@@ -28,6 +29,7 @@ Here's a breakdown of the technologies used in this project:
 - **Deployment & Tools:**
   - [**Docker**](https://www.docker.com/): For containerizing the application.
   - [**Docker Compose**](https://docs.docker.com/compose/): For defining and running multi-container Docker applications.
+  - **Render:** Cloud platform for hosting the deployed application.
 
 ---
 
@@ -48,14 +50,17 @@ This project uses environment variables. You'll need to create local `.env` file
   - **IMPORTANT for Docker Permissions:** You need to add your local user ID and group ID to this file. This is vital for preventing "permission denied" errors when your Docker containers try to write to host-mounted volumes (like the `uploads` folder).
 
     - Find your UID and GID by running `id -u` and `id -g` in your terminal.
+    - Create a [Cloudinary account](https://cloudinary.com/) and get the credentials from the Cloudinary Dashboard.
     - Then, add them to your `.env` file like this:
 
       ```env
       # .env (in your project root)
       # ... other existing variables like MONGO_URI, JWT_SECRET etc.
 
-      # Local User ID and Group ID for Docker container permissions
-      # Required for host bind mounts to prevent "permission denied" errors (EACCES)
+      # Cloudinary Credentials (get these from your Cloudinary Dashboard)
+      CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+      CLOUDINARY_API_KEY=your_cloudinary_api_key
+      CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
       # Find these using 'id -u' and 'id -g' in your terminal
       LOCAL_UID=<YOUR_UID_HERE> # e.g., LOCAL_UID=1000
