@@ -17,6 +17,7 @@ app.use(
       "http://localhost:3000",
       "http://localhost",
       "https://aura-upe1.onrender.com/",
+      "https://aura-server-2tlu.onrender.com",
     ],
     credentials: true,
   })
