@@ -19,7 +19,7 @@ COPY . .
 RUN REACT_APP_API_URL=${REACT_APP_API_URL} npm run build
 
 # Use a Node.js image for the runtime environment
-FROM node:20-slim AS runner
+FROM --platform=linux/amd64 node:20-slim AS runner
 
 # Set production environment for runtime
 ENV NODE_ENV production
