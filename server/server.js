@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: "http://localhost",
+    origin: [
+      "http://localhost:3000",
+      "http://localhost",
+      "https://aura.onrender.com",
+    ],
     credentials: true,
   })
 );
