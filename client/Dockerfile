@@ -1,5 +1,5 @@
 # Use a Node.js image for building the React app
-FROM node:20-slim AS builder
+FROM --platform=linux/amd64 node:20-slim AS builder
 
 # Declare the build argument
 ARG REACT_APP_API_URL

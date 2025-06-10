@@ -1,5 +1,5 @@
 # Use a specific Node.js version for stability and smaller size.
-FROM node:20-slim
+FROM --platform=linux/amd64 node:20-slim
 
 # Use production node environment by default for smaller image and optimized dependencies.
 ENV NODE_ENV production
