@@ -48,8 +48,9 @@
 }
 
 .upload-form .button {
-  width: 95%;
+  width: 93%;
   font-size: 20px;
+  align-self: normal;
 }
 
 .upload-box-top input[type="file"] {
@@ -222,7 +223,7 @@
   .upload-box-top .custom-file-input-label,
   .upload-box-top .selected-file-name,
   .upload-box-top .audio-player-container {
-    width: 100%; /* Make these elements take full width */
+    width: 90%; /* Make these elements take full width */
     max-width: none; /* Remove max-width constraint */
   }
 

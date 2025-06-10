@@ -38,3 +38,10 @@
 .button {
   align-self: end;
 }
+
+@media (max-width: 768px) {
+  .main-header .button {
+    align-self: end;
+    width: 26%;
+  }
+}
