@@ -71,19 +71,24 @@ This project uses environment variables. You'll need to create local `.env` file
 
 - **Server Directory (`aura/server/.env`)**:
 
-  - This file is for your local backend server's secrets when running _outside_ Docker (e.g., local MongoDB URI, local JWT secret).
+  - This file is for your local backend server's secrets when running _outside_ Docker (e.g., local MongoDB URI, local JWT secret, same Cloudinary credentials).
   - Copy `server/example.env` to `server/.env`:
+
     ```bash
     cp server/example.env server/.env
     ```
+
   - Fill in your actual values.
 
 - **Client Directory (`aura/client/.env`)**:
+
   - This file is for your local client-side configuration (e.g., the API URL for your local backend).
   - Copy `client/example.env` to `client/.env`:
+
     ```bash
     cp client/example.env client/.env
     ```
+
   - Fill in your actual values (e.g., `REACT_APP_API_URL=http://localhost:5000`).
 
 ---
