@@ -49,13 +49,28 @@ const HomePage = () => {
           }
         );
 
+        //for local development
+        // const mapped = response.data.map((audio) => {
+        //   const cleanSrc = audio.src.startsWith("/uploads/")
+        //     ? audio.src.substring("/uploads/".length)
+        //     : audio.src;
+        //   return {
+        //     ...audio,
+        //     src: `${API_BASE_URL}/uploads/${cleanSrc}`,
+        //   };
+        // });
+
         const mapped = response.data.map((audio) => {
-          const cleanSrc = audio.src.startsWith("/uploads/")
-            ? audio.src.substring("/uploads/".length)
-            : audio.src;
+          let finalSrc = audio.src;
+          if (
+            !audio.src.startsWith("http://") &&
+            !audio.src.startsWith("https://")
+          ) {
+            finalSrc = `${API_BASE_URL}${audio.src}`;
+          }
           return {
             ...audio,
-            src: `${API_BASE_URL}/uploads/${cleanSrc}`,
+            src: finalSrc,
           };
         });
 
@@ -69,7 +84,7 @@ const HomePage = () => {
   }, [userID, token, navigate]);
 
   const handleFileUploadSuccess = (newAudioItem) => {
-    setAudioFiles((prev) => [...prev, newAudioItem.audio]);
+    setAudioFiles((prev) => [...prev, newAudioItem]);
   };
 
   return (
