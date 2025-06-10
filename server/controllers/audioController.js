@@ -24,11 +24,13 @@ export const uploadAudio = async (req, res) => {
 
     if (!file) return res.status(400).json({ message: "No file uploaded." });
 
+    const audioUrl = req.file.path || req.file.secure_url;
+
     const newAudio = new Audio({
       userID,
       filename: file.originalname,
       description,
-      src: file.filename,
+      src: audioUrl, // Use the path or secure_url from Cloudinary
       category,
     });
 
